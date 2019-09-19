@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Entire bundle -->
+
+<html>
+<head>
+    <script src="https://unpkg.com/draggabilly@2/dist/draggabilly.pkgd.min.js"></script>
+
+
+
+    <style type="text/css">
+        body { font-family: sans-serif; }
+
+        .containerrr {
+            padding: 10px;
+            border: 2px solid #F90;
+            height: 800px;
+            position:relative;
+        }
+
+        .draggable {
+            width: 140px;
+            height: 140px;
+            background: #F90;
+            border-radius: 10px;
+            margin: 0 10px 10px 0;
+            position:absolute;
+            left: 0;
+        }
+
+        .garbage {
+            width: 140px;
+            height: 140px;
+            background: #F90;
+            border-radius: 10px;
+            margin: 0 10px 10px 0;
+            position:absolute;
+
+
+        }
+
+        #gabage-1{
+            left: 200px;
+            bottom: 100px;
+        }
+
+        #gabage-2{
+            left: 400px;
+            bottom: 100px;
+        }
+
+
+
+
+        .draggable.is-pointer-down {
+            background: red;
+            z-index: 2; /* above other draggies */
+        }
+        .draggable.is-dragging { opacity: 0.8; }
+
+
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            // external js: draggabilly.pkgd.js
+
+// get all draggie elements
+            var draggableElems = document.querySelectorAll('.draggable');
+// array of Draggabillies
+            var draggies = []
+// init Draggabillies
+            for ( var i=0, len = draggableElems.length; i < len; i++ ) {
+                var draggableElem = draggableElems[i];
+                var draggie = new Draggabilly( draggableElem, {
+                    containment: true
+                });
+                draggies.push( draggie );
+            }
+            var dragElem = document.querySelector('.draggable');
+            var gargElem1 = document.querySelector('#gabage-1');
+
+
+            function getRect(obj){
+                return obj.getBoundingClientRect();
+            }
+            function crash(obj1,obj2){
+                var first_Rect = getRect(obj1);
+                var second_rect = getRect(obj2);
+
+                var firstLeft = getRect(obj1).left;
+                var firstTop = getRect(obj1).top;
+                var firstRight = getRect(obj1).right;
+                var firstBottom = getRect(obj1).bottom;
+
+                var secondLeft = getRect(obj2).left;
+                var secondTop = getRect(obj2).top;
+                var secondRight = getRect(obj2).right;
+                var secondBottom = getRect(obj2).bottom;
+                if(firstLeft > secondRight||firstRight < secondLeft||firstTop > secondBottom||firstBottom < secondTop){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            setInterval(function () {
+                if (crash(dragElem,gargElem1)){
+                    console.log('撞了');
+                }else {
+                    console.log('没撞');
+                }
+            },200)
+        }
+
+
+
+
+    </script>
+</head>
+<body><h1>Draggabilly - containment with vanilla JS</h1>
+<div class="containerrr">
+    <div class="draggable">
+        垃圾
+    </div>
+    <div class="garbage" id="gabage-1">
+        垃圾桶1
+    </div>
+    <div class="garbage" id="gabage-2">
+        垃圾桶2
+    </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  .game-intro-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 3;
+    font-family:'YouYuan';
+
+
+    .game-intro-bg {
+      height: 100%;
+      background-color: black;
+      opacity: 0.8;
+    }
+
+    #befIntroStateBtn,#afIntroStateBtn {
+      z-index: 10;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: none;
+      color: white;
+      font-weight: bolder;
+      font-size: 4rem;
+      outline: 0;
+
+      &:focus {
+        outline: 0
+      }
+    }
+
+    #befIntroStateBtn{
+      left: 2%;
+    }
+
+    #afIntroStateBtn {
+      right: 2%;
+    }
+
+    .game-intro-content{
+      box-sizing: border-box;
+      width: 100vw;
+      height: 40vh;
+      padding: 2vh 4vw;
+      z-index: 4;
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: white;
+      font-weight: 600;
+      line-height: 4.5vh;
+      letter-spacing: 0.4vh;
+      h3{
+        font-size: 2rem;
+        margin-top: 0.5rem;
+      }
+      p{
+        word-wrap:break-word;
+      }
+    }
+    .options-wrapper{
+      position: absolute;
+      bottom: 3%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .normal-btn{
+      height: 7.2vw;
+    }
+    .stop-remind-wrapper{
+      text-align: center;
+    }
+  }
+
+
+  .header {
+    width: 100%;
+    height: 24%;
+    background: url("../../assets/quiz-background.png") no-repeat center center;
+    background-size: 100% 100%;
+  }
+
+  .background {
+    margin-top: -18vw;
+    width: 0;
+    height: 0;
+    border-left: 11.5vw solid transparent;
+    border-right: 11.5vw solid transparent;
+    border-bottom: 10.5vw solid #fff;
+  }
+
+  .clock {
+    z-index: 2;
+    margin-top: -6vh;
+    width: 18vw;
+    height: 18vw;
+    box-sizing: border-box;
+    border: 1.6vw solid #fff;
+  }
+
+  .animation {
+    display: block;
+    border-radius: 50%;
+    background-color: #fff;
+    z-index: 1;
+  }
+
+  .path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+  }
+
+  .circle {
+    animation: dash .9s ease-in-out;
+  }
+
+  .line {
+    stroke-dashoffset: 1000;
+    animation: dash .9s .35s ease-in-out forwards;
+  }
+
+  .check {
+    stroke-dashoffset: -100;
+    animation: dash-check .9s .35s ease-in-out forwards;
+  }
+
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }
+  // 题目
+  .question {
+    margin: 30px 10% 10px;
+    text-align: center;
+    color: #444;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 600;
+  }
+
+  // 选项
+  .options {
+    width: 60%;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    // 选项进入效果
+    .slide-enter-active {
+      &:nth-child(2) {
+        transition-delay: .1s;
+      }
+
+      &:nth-child(3) {
+        transition-delay: .2s;
+      }
+
+      &:nth-child(4) {
+        transition-delay: .3s;
+      }
+
+      &:nth-child(5) {
+        transition-delay: .4s;
+      }
+    }
+
+    .slide-leave-active {
+      &:nth-child(2) {
+        transition-delay: .1s;
+      }
+
+      &:nth-child(3) {
+        transition-delay: .2s;
+      }
+
+      &:nth-child(4) {
+        transition-delay: .3s;
+      }
+
+      &:nth-child(5) {
+        transition-delay: .4s;
+      }
+    }
+  }
+
+  .game-zone {
+    background-image: url("../../assets/quiz_bg.jpg");
+    background-size: cover;
+    position: relative;
+    height: 75%;
+
+    .barrel-list {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+
+      .barrel {
+        height: 33.4vw;
+        flex: 0 0 50%;
+        box-sizing: border-box;
+        text-align: center;
+        margin: 10.5vw 0;
+        position: relative;
+        pointer-events: none;
+
+
+        .barrel-img {
+          height: 100%;
+        }
+
+        .barrel-name {
+          position: absolute;
+          left: 50%;
+          bottom: 5%;
+          transform: translate(-50%, -50%);
+
+        }
+      }
+    }
+
+    .garbage {
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      transform: translate(-50%, -50%);
+      width: 16vw;
+      height: 16vw;
+
+      img {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        max-height: 100%;
+        height: auto;
+      }
+    }
+  }
+
+
+  // 题目进入动画
+  .slide-enter-active {
+    transition: all .8s;
+  }
+
+  .slide-leave-active {
+    transition: all .6s;
+  }
+
+  .slide-enter {
+    transform: translateX(100vw);
+  }
+
+  .slide-leave-to {
+    transform: translateX(-100vw);
+  }
+
+  .bottom-bar {
+    position: absolute;
+    bottom: 3vw;
+  }
+}

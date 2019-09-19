@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Entire bundle -->
+
+<html>
+<head>
+    <!-- Entire bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.bundle.js"></script>
+    <!-- legacy bundle for older browsers (IE11) -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.bundle.legacy.js"></script>
+    <!-- Draggable only -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/draggable.js"></script>
+    <!-- Sortable only -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/sortable.js"></script>
+    <!-- Droppable only -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/droppable.js"></script>
+    <!-- Swappable only -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/swappable.js"></script>
+    <!-- Plugins only -->
+    <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.8/lib/plugins.js"></script>
+    <style type="text/css">
+        #div1 {
+            width: 198px;
+            height: 66px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+
+        #div2{
+            margin-top: 100px;
+            width: 198px;
+            height: 66px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        .draged-image{
+            width: 170px;
+            height: 50px;
+        }
+
+    </style>
+    <script type="text/javascript">
+
+
+        var img = new Image();
+        img.src = 'penguin.png';
+
+        function allowDropIn(ev) {
+            ev.preventDefault();
+            console.log('allowDropIn')
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("Text", ev.target.id);
+
+            ev.dataTransfer.setDragImage(img,10,10);
+            console.log('dragggggggg')
+        }
+
+        function dropIn(ev) {
+            ev.preventDefault();
+            console.log('dropIn')
+            var data = ev.dataTransfer.getData("Text");
+            ev.dataTransfer.setDragImage(img,10,10);
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+        function dragEnter(ev) {
+            ev.preventDefault();
+            ev.target.style.borderColor='red';
+            ev.dataTransfer.setDragImage(img,10,10);
+            console.log('dragEnter',ev.target.id);
+        }
+
+        function dragLeave(ev) {
+            ev.preventDefault();
+            ev.target.style.borderColor='black'
+            console.log('dragLeave',ev.target.id);
+        }
+
+
+    </script>
+</head>
+<body>
+
+<p>请拖动吧</p>
+
+<div id="div1" ondrop="dropIn(event)" ondragover="allowDropIn(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)"></div>
+<br/>
+<div id="div2"  ondrop="dropIn(event)" ondragover="allowDropIn(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+    <img id="drag1" src="bd_logo1.png" draggable="true" class="draged-image" ondragstart="drag(event)" />
+</div>
+
+</body>
+</html>
